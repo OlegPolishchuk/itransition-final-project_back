@@ -1,0 +1,43 @@
+import {Response, Request} from 'express';
+import {User} from "../../models/User";
+import bcrypt from 'bcrypt';
+import {validationResult} from "express-validator";
+
+
+export const registerController = async (req: Request, res: Response) => {
+
+  try{
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array(),
+        message: 'Некорректные данные при регистрации'
+      })
+    }
+
+    const {email, password} = req.body;
+
+    const candidate = await User.findOne({email});
+
+    if (candidate){
+      return res.status(400).json({
+        message: 'Такой пользователь уже существует'
+      })
+    }
+
+    const salt = 10;
+    const hashPassword = await bcrypt.hash(password, salt);
+
+    const user = new User({email, password: hashPassword});
+
+    await user.save();
+
+    res.status(201).json({user})
+
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({message: 'Что-то не так в loginController'})
+  }
+
+}
