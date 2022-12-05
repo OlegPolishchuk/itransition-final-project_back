@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import {validationResult} from "express-validator";
 
 
-export const registerController = async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response) => {
 
   try{
     const errors = validationResult(req);
@@ -29,15 +29,19 @@ export const registerController = async (req: Request, res: Response) => {
     const salt = 10;
     const hashPassword = await bcrypt.hash(password, salt);
 
-    const user = new User({email, password: hashPassword});
+    const user = new User({
+      email,
+      password: hashPassword,
+      role: 'user',
+    });
 
     await user.save();
 
-    res.status(201).json({user})
+    res.status(201).json({message: 'User created'})
 
   } catch (e) {
     console.log(e);
-    res.status(500).json({message: 'Что-то не так в loginController'})
+    res.status(500).json({message: 'Что-то не так в login'})
   }
 
 }

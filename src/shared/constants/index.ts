@@ -1,1 +1,2 @@
-export {Routes} from './routes';
+export {routes} from './routes';
+export {TokenData} from './tokenData';

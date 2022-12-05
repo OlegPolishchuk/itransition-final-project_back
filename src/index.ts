@@ -1,10 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import bodyparser from 'body-parser';
+
 import mongoose from "mongoose";
-import {Routes} from "./shared/";
 import {authRouter} from "./routes";
+import {routes} from "./shared";
+import bodyParser from "body-parser";
+
 
 const app = express();
 dotenv.config();
@@ -16,20 +18,14 @@ const DB_NAME = process.env.DB_NAME;
 
 const DB_URL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.koqzweg.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
 
-app.use(cors());
-app.use(bodyparser.json());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
+app.use(bodyParser.json({strict: false}))
 
+app.use(routes.auth.baseUrl, authRouter)
 
-
-// app.use('/', (req, res) => {
-//   res.status(200).json({message: 'it works'})
-// })
-app.use('/api/auth', authRouter)
-
-// app.use('/api/sessions', authRouter)
-// app.use('/api/sessions', () => {
-//   console.log('Routes.AUTH')
-// })
 
 const start = async () => {
 

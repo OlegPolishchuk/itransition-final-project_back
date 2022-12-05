@@ -1,27 +1,35 @@
 import {Router} from "express";
-import {sessionController} from "../controllers/sessionController";
-import {authController} from "../controllers/authController";
-import {registerController} from "../controllers/auth/registerController";
-import {check, validationResult} from 'express-validator';
-import {loginController} from "../controllers/auth/loginController";
-import {authMiddleware} from "../middlewares/auth/register";
-import {loginMiddleware} from "../middlewares/auth/login";
+import {routes} from "../shared";
+import {
+  register,
+  login,
+  refreshToken,
+  logout,
+  getProfile
+} from "../controllers";
+
+import {
+  authMiddleware,
+  loginMiddleware,
+  verifyAccessToken,
+  verifyRefreshToken
+} from "../middlewares";
+import {findUserByToken} from "../shared";
 
 export const authRouter = Router();
 
-// authRouter.get('/oauth/google', sessionController);
-
-//localhost:3000/api/auth/
-authRouter.post('', authController);
-
 //localhost:3000/api/auth/register
 authRouter.post(
-  '/register',
+  routes.auth.register,
   [authMiddleware.checkEmail, authMiddleware.checkPassword],
-  registerController);
+  register);
 
 //localhost:3000/api/auth/login
 authRouter.post(
-  '/login',
+  routes.auth.login,
   [loginMiddleware.checkEmail, loginMiddleware.checkPassword],
-  loginController);
+  login);
+
+authRouter.get(routes.auth.logout, logout);
+authRouter.post(routes.auth.profile, verifyAccessToken, findUserByToken(getProfile))
+authRouter.get(routes.auth.refresh, verifyRefreshToken, refreshToken)
