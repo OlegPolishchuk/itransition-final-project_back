@@ -15,11 +15,12 @@ const PORT = process.env.PORT || 5000;
 const DB_USER = process.env.DB_USER;
 const DB_PASSWORD = process.env.DB_PASS;
 const DB_NAME = process.env.DB_NAME;
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
 
 const DB_URL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.koqzweg.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: CLIENT_ORIGIN,
   credentials: true
 }));
 app.use(bodyParser.json({strict: false}))
