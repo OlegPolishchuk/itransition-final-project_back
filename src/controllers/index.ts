@@ -1,1 +1,1 @@
-export {getProfile, refreshToken, login, logout, register} from './auth';
+export {getProfile, refreshToken, login, logout, register, googleLogin} from './auth';

@@ -1,23 +1,21 @@
 import {Schema, model, Types} from "mongoose";
 
 export type User = {
-  email: string;
+  login: string;
   password: string;
   reviews: [];
   role: string;
   token: string;
   refreshToken: string;
-  tokenExpire: number;
   _doc: object;
 }
 
 
 const userSchema = new Schema<User>({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  login: { type: String, required: true, unique: true },
+  password: { type: String },
   token: {type: String},
   refreshToken: {type: String},
-  tokenExpire: {type: Number},
   reviews: [{type: Types.ObjectId, ref: 'Reviews'}],
   role: { type: String,required: true },
 })

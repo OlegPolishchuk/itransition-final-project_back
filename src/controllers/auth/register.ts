@@ -18,7 +18,7 @@ export const register = async (req: Request, res: Response) => {
 
     const {email, password} = req.body;
 
-    const candidate = await User.findOne({email});
+    const candidate = await User.findOne({login: email});
 
     if (candidate){
       return res.status(400).json({
@@ -30,7 +30,7 @@ export const register = async (req: Request, res: Response) => {
     const hashPassword = await bcrypt.hash(password, salt);
 
     const user = new User({
-      email,
+      login: email,
       password: hashPassword,
       role: 'user',
     });

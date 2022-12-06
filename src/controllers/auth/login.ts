@@ -9,7 +9,6 @@ import {getProfile} from "./getProfile";
 
 dotenv.config();
 
-const accessTokenAge = TokenData.accessTokenAge;
 const refreshTokenAge = TokenData.refreshTokenAge;
 
 export const login =  async (req: Request, res: Response) => {
@@ -25,7 +24,7 @@ export const login =  async (req: Request, res: Response) => {
 
     const {email, password} = req.body;
 
-    const user = await User.findOne({email});
+    const user = await User.findOne({login: email});
 
     if (!user) {
       return res.status(400).json({message: 'Пользователь не найден'})
@@ -45,7 +44,6 @@ export const login =  async (req: Request, res: Response) => {
         {
           token: accessToken,
           refreshToken,
-          tokenExpire: accessTokenAge,
         },
         {new: true},
       ).exec();
