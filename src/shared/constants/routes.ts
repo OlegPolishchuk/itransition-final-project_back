@@ -6,6 +6,8 @@ export const routes = {
     logout: '/logout',
     profile: '/getProfile',
     refresh: '/refresh',
-    google: '/googleAuth'
+    google: '/googleAuth',
+    twitter: '/twitterAuth',
+    social: '/socialAuth',
   },
 }

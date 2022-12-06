@@ -6,8 +6,9 @@ import {getProfile} from "../../controllers/auth/getProfile";
 
 const refreshTokenAge = TokenData.refreshTokenAge;
 
-export const googleLogin = async (req: Request, res: Response) => {
-  const {login, name, googleId} = req.body;
+export const socialLogin = async (req: Request, res: Response) => {
+
+  const {login} = req.body;
 
   const user = await User.findOne({login});
 

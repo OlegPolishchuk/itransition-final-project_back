@@ -5,7 +5,7 @@ import {
   login,
   refreshToken,
   logout,
-  getProfile, googleLogin
+  getProfile, socialLogin
 } from "../controllers";
 
 import {
@@ -15,7 +15,6 @@ import {
   verifyRefreshToken
 } from "../middlewares";
 import {findUserByToken} from "../shared";
-
 
 
 export const authRouter = Router();
@@ -33,7 +32,7 @@ authRouter.post(
   login);
 
 authRouter.get(routes.auth.logout, logout);
-authRouter.post(routes.auth.profile, verifyAccessToken, findUserByToken(getProfile))
-authRouter.get(routes.auth.refresh, verifyRefreshToken, refreshToken)
+authRouter.post(routes.auth.profile, verifyAccessToken, findUserByToken(getProfile));
+authRouter.get(routes.auth.refresh, verifyRefreshToken, refreshToken);
 
-authRouter.post(routes.auth.google, googleLogin)
+authRouter.post(routes.auth.social, socialLogin);
