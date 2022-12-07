@@ -3,6 +3,7 @@ import {User} from "../../models/User";
 import {getTokens, TokenData} from "../../shared";
 import cookie from "cookie";
 import {getProfile} from "../../controllers/auth/getProfile";
+import {userStatus} from "../../shared";
 
 const refreshTokenAge = TokenData.refreshTokenAge;
 
@@ -10,20 +11,22 @@ export const socialLogin = async (req: Request, res: Response) => {
 
   const {login} = req.body;
 
+  console.log(login)
+
   const user = await User.findOne({login});
 
   if (!user) {
-
     const user = new User({
       login,
       role: 'user',
+      status: userStatus.active,
     })
 
     await user.save();
 
     await updateUser(user, res, req)
   }
-  if (user) {
+  else {
     await updateUser(user, res, req)
   }
 

@@ -9,6 +9,8 @@ const refreshTokenAge = TokenData.refreshTokenAge;
 export const refreshToken = async (req: Request, res: Response) => {
   const {refreshToken} = cookie.parse(req.headers.cookie as string)
 
+  console.log(`refreshToken`, refreshToken)
+
   try {
     const user = await User.findOne({refreshToken}).exec();
 
@@ -28,20 +30,25 @@ export const refreshToken = async (req: Request, res: Response) => {
         {new: true},
       ).exec();
 
-      res.setHeader(
-        'Set-cookie',
-        cookie.serialize('refreshToken', refreshToken, {
-          httpOnly: true,
-          maxAge: refreshTokenAge,
-        })
-      )
-      res.status(200).json({
-        token: newUser?.token
-      })
+
+     if (newUser) {
+       res.setHeader(
+         'Set-cookie',
+         cookie.serialize('refreshToken', refreshToken, {
+           httpOnly: true,
+           maxAge: refreshTokenAge,
+         })
+       )
+       console.log(`newUser`, newUser)
+       return res.status(200).json({
+         token: newUser.token
+       })
+     }
 
     }
   }
   catch (e) {
+    console.log('error !!!!!!!!!!!!!!!!!!', e)
     res.status(500).json({
       error: 'refreshToken error'})
   }

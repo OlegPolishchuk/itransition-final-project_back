@@ -1,5 +1,8 @@
 import {NextFunction, Request, Response} from "express";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const signatureAccess = process.env.JWT_ACCESS_SECRET as string;
 
@@ -13,7 +16,9 @@ export const verifyAccessToken = async (req: Request, res: Response, next: NextF
     }
 
     try {
-      jwt.verify(token, signatureAccess)
+      jwt.verify(token, signatureAccess, (err) => {
+        console.log(`verify Access Token Error`, err)
+      })
     } catch (e) {
       return res.status(401).json({message: 'expired access token'})
     }

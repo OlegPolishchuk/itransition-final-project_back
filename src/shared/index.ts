@@ -1,2 +1,2 @@
-export {routes, TokenData} from './constants';
+export {routes, TokenData, userStatus} from './constants';
 export {findUserByToken, getTokens} from './utils';

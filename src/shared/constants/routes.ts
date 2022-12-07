@@ -10,4 +10,7 @@ export const routes = {
     twitter: '/twitterAuth',
     social: '/socialAuth',
   },
+  users: {
+    baseUrl: '/users',
+  }
 }

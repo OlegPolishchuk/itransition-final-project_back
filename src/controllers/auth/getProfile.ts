@@ -6,6 +6,7 @@ export const getProfile = (req: Request, res: Response, user: User) => {
 
   delete body.password;
   delete body.refreshToken;
+  delete body.status;
 
   res.status(200).json({...body})
 }

@@ -7,6 +7,7 @@ export type User = {
   role: string;
   token: string;
   refreshToken: string;
+  status: string;
   _doc: object;
 }
 
@@ -18,6 +19,7 @@ const userSchema = new Schema<User>({
   refreshToken: {type: String},
   reviews: [{type: Types.ObjectId, ref: 'Reviews'}],
   role: { type: String,required: true },
+  status: {type: "String", required: true},
 })
 
 export const User = model<User>('User', userSchema);

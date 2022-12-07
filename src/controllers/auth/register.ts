@@ -2,12 +2,14 @@ import {Response, Request} from 'express';
 import {User} from "../../models/User";
 import bcrypt from 'bcrypt';
 import {validationResult} from "express-validator";
+import {userStatus} from "../../shared";
 
 
 export const register = async (req: Request, res: Response) => {
 
   try{
     const errors = validationResult(req);
+    let role = 'user';
 
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -26,13 +28,18 @@ export const register = async (req: Request, res: Response) => {
       })
     }
 
+    if (email === 'admin@mail.ru' && password === 'qwerqwer') {
+      role = 'admin'
+    }
+
     const salt = 10;
     const hashPassword = await bcrypt.hash(password, salt);
 
     const user = new User({
       login: email,
       password: hashPassword,
-      role: 'user',
+      role,
+      status: userStatus.active,
     });
 
     await user.save();
