@@ -44,6 +44,7 @@ export const login =  async (req: Request, res: Response) => {
         {
           token: accessToken,
           refreshToken,
+          lastLogin: Date.now(),
         },
         {new: true},
       ).exec();

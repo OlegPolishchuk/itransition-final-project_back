@@ -39,6 +39,9 @@ export const register = async (req: Request, res: Response) => {
       login: email,
       password: hashPassword,
       role,
+      created: Date.now(),
+      lastLogin: Date.now(),
+      userName: '',
       status: userStatus.active,
     });
 

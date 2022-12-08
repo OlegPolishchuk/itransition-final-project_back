@@ -20,6 +20,8 @@ export const socialLogin = async (req: Request, res: Response) => {
       login,
       role: 'user',
       status: userStatus.active,
+      created: Date.now(),
+      lastLogin: Date.now(),
     })
 
     await user.save();
@@ -41,6 +43,7 @@ export const socialLogin = async (req: Request, res: Response) => {
         {
           token: accessToken,
           refreshToken,
+          lastLogin: Date.now(),
         },
         {new: true},
       ).exec();
