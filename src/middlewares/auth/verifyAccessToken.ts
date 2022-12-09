@@ -17,7 +17,9 @@ export const verifyAccessToken = async (req: Request, res: Response, next: NextF
 
     try {
       jwt.verify(token, signatureAccess, (err) => {
-        console.log(`verify Access Token Error`, err)
+        if (err) {
+          console.log(`verify Access Token Error`, err)
+        }
       })
     } catch (e) {
       return res.status(401).json({message: 'expired access token'})

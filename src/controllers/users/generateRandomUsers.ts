@@ -5,9 +5,9 @@ import {createRandomUser} from "../../shared";
 
 export const generateRandomUsers = async (req: Request, res: Response) => {
   try {
-    const {count, locale} = req.body;
+    const {count, locale, status} = req.body;
 
-    const users: Partial<User>[] = createRandomUser(count, locale);
+    const users: Partial<User>[] = createRandomUser(count, locale, status);
 
     await User.insertMany(users);
 
