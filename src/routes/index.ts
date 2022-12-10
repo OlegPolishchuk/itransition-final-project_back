@@ -1,2 +1,3 @@
 export {authRouter} from './authRouter';
-export {usersRouter} from './usersRoutes';
+export {usersRouter} from './usersRouter';
+export {userRouter} from './userRouter';

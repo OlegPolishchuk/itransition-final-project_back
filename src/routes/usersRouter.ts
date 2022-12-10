@@ -1,6 +1,10 @@
 import {Router} from "express";
-import {deleteUsers, getUsers, updateUsers} from "../controllers";
-import {generateRandomUsers} from "../controllers";
+import {
+  deleteUsers,
+  getUsers,
+  updateUsers,
+  generateRandomUsers
+} from "../controllers";
 
 export const usersRouter = Router();
 

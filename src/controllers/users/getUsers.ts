@@ -6,7 +6,7 @@ export const getUsers = async (req: Request, res: Response) => {
   let {page, limit} = req.query;
 
   const skipCount = Number(page) === 0 ? 0 : Number(page) * Number(limit);
-  const take = Number(limit);
+  const take = Number(limit) !== 0 ? Number(limit) : 10;
 
   try{
     const users = await User.find().skip(skipCount).limit(take);

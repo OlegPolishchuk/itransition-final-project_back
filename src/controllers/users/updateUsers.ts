@@ -6,7 +6,6 @@ export const updateUsers = async (req: Request, res: Response) => {
 
   try{
     const {users}: UpdatedUsersRequest = req.body;
-    console.log(users)
 
     for await (let user of users) {
      await User.updateOne({_id: user.id}, {$set:{status: user.status}})

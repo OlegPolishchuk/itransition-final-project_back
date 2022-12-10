@@ -18,7 +18,7 @@ export const verifyAccessToken = async (req: Request, res: Response, next: NextF
     try {
       jwt.verify(token, signatureAccess, (err) => {
         if (err) {
-          console.log(`verify Access Token Error`, err)
+          console.log(`verify Access Token Error =>`, err)
         }
       })
     } catch (e) {

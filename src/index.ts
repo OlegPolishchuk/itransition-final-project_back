@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 import mongoose from "mongoose";
-import {authRouter, usersRouter} from "./routes";
+import {authRouter, usersRouter, userRouter} from "./routes";
 import {routes} from "./shared";
 import bodyParser from "body-parser";
 
@@ -27,6 +27,8 @@ app.use(bodyParser.json({strict: false}))
 
 app.use(routes.auth.baseUrl, authRouter)
 app.use(routes.users.baseUrl, usersRouter)
+app.use(routes.user.baseUrl, userRouter)
+// app.use(routes.user.baseUrl, () => {console.log('qwefqwef')})
 
 
 const start = async () => {

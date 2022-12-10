@@ -14,7 +14,7 @@ export const refreshToken = async (req: Request, res: Response) => {
 
     if (!user) {
       console.log(`REFRESH TOKEN`, refreshToken)
-      res.status(401).json({error: 'Cant find user with current refresh token'})
+      res.status(401).json({error: 'Cant find currentUser with current refresh token'})
     } else {
       const {accessToken, refreshToken} = getTokens(user.id);
 

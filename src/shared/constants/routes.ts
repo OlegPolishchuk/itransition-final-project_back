@@ -12,5 +12,8 @@ export const routes = {
   },
   users: {
     baseUrl: '/users',
+  },
+  user: {
+    baseUrl: '/user',
   }
 }
