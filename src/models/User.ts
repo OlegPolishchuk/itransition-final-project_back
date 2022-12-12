@@ -13,6 +13,7 @@ export type User = {
   lastLogin: Date;
   created: Date;
   _doc: object;
+  _id?: string;
 }
 
 
@@ -25,7 +26,7 @@ const userSchema = new Schema<User>({
   refreshToken: {type: String},
   reviews: [{type: Types.ObjectId, ref: 'Reviews'}],
   role: { type: String,required: true },
-  status: {type: "String", required: true},
+  status: {type: String, required: true},
   created: {type: Date, required: true},
   lastLogin: {type: Date, required: true},
 })

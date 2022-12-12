@@ -11,6 +11,7 @@ export const createRandomUser  = (count: number, locale: Locales, status: string
 
   Array.from({length: count}).forEach(() => {
     const user: Partial<User> = {
+      _id: faker.database.mongodbObjectId(),
       userName: faker.name.fullName(),
       login: faker.internet.email(),
       avatar: faker.image.avatar(),

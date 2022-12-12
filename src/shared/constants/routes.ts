@@ -15,5 +15,15 @@ export const routes = {
   },
   user: {
     baseUrl: '/user',
+
+  },
+  review: {
+    baseUrl: '/reviews',
+    random: '/random',
+    latest: '/latest',
+    userReviews: '/userReviews',
+  },
+  tags: {
+    baseUrl: '/tags',
   }
 }
