@@ -34,11 +34,9 @@ export const generateRandomUsers = async (req: Request, res: Response) => {
 
         console.log(`reviews !!! =>`, reviews)
         await Reviews.insertMany(reviews)
-
-
-
-      res.sendStatus(201);
     }
+
+    res.sendStatus(201);
 
   } catch (e) {
     console.log(e)

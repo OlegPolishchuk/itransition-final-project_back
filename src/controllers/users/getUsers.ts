@@ -1,12 +1,25 @@
 import {Request, Response} from "express";
 import {User} from "../../models/User";
-import {prepareUsersForClient} from "../../shared";
+import {defaultUsersQueryParams, prepareUsersForClient} from "../../shared";
 
 export const getUsers = async (req: Request, res: Response) => {
   let {page, limit} = req.query;
 
-  const skipCount = Number(page) === 0 ? 0 : Number(page) * Number(limit);
-  const take = Number(limit) !== 0 ? Number(limit) : 10;
+  let pageNumber = Number(page);
+  let limitNumber = Number(limit);
+
+  if (isNaN(pageNumber)) {
+    pageNumber = defaultUsersQueryParams.page
+  }
+
+  if (isNaN(limitNumber)) {
+    limitNumber = defaultUsersQueryParams.limit
+  }
+
+  const skipCount = pageNumber === 0 ? 0 : pageNumber * limitNumber;
+  const take = limitNumber !== 0 ? limitNumber : defaultUsersQueryParams.limit;
+
+
 
   try{
     const users = await User.find().skip(skipCount).limit(take);

@@ -29,7 +29,7 @@ export const deleteUsers = async (req: Request, res: Response) => {
   } catch (e) {
     console.log(e);
     res.status(500).json({
-      message: 'Error in deleteUser Controller', e
+      message: 'Error in deleteUser Controller'
     })
   }
 }

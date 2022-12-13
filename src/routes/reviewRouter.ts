@@ -1,6 +1,7 @@
 import {Router} from "express";
 import {
   createReview,
+  deleteReviews,
   generateRandomReviews,
   getLatestReviews,
   getReviews
@@ -9,10 +10,12 @@ import {routes} from "../shared";
 
 export const reviewRouter = Router();
 
-reviewRouter.get('/', () => {});
+reviewRouter.get('/', () => {
+});
 reviewRouter.post('/', createReview);
-reviewRouter.put('/', () => {});
-reviewRouter.delete('/', () => {});
+reviewRouter.put('/', () => {
+});
+reviewRouter.delete('/', deleteReviews);
 reviewRouter.post(routes.review.random, generateRandomReviews);
 
 reviewRouter.get(routes.review.userReviews, getReviews);
