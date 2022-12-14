@@ -5,7 +5,7 @@ export type Review = {
   userId: string;
   title: string;
   subtitle: string;
-  tag: string | string[];
+  tags: string[];
   body: string;
   personalScore: number;
   overallScore: number;
@@ -18,7 +18,7 @@ const reviewSchema = new Schema<Review>({
   userId: {type: String, required: true},
   title: {type: String, required: true},
   subtitle: {type: String, required: true},
-  tag: {type: String, required: true},
+  tags: [{type: String, required: true}],
   body: {type: String, required: true},
   personalScore: {type: Number, required: true},
   overallScore: {type: Number, required: true},

@@ -4,7 +4,7 @@ import {userRoles} from "../../shared";
 import {Locales} from "../../types/Locales";
 
 
-export const createRandomUser  = (count: number, locale: Locales, status: string) => {
+export const createRandomUser  = (count: number, locale: Locales, status: string, reviewsCount: number) => {
   faker.locale = locale;
 
   const users: Partial<User>[] = [];
@@ -19,7 +19,7 @@ export const createRandomUser  = (count: number, locale: Locales, status: string
       created: new Date(),
       role: userRoles.user,
       status: status,
-      reviews: [],
+      reviewsCount,
       lastLogin: new Date(),
     }
 

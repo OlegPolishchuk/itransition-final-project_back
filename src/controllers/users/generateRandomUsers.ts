@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {User} from "../../models/User";
-import {createRandomReview, createRandomUser, findAllTags} from "../../shared";
+import {createRandomReview, createRandomUser, findAllTags,} from "../../shared";
 import {Review, Reviews} from "../../models/Review";
 
 export const generateRandomUsers = async (req: Request, res: Response) => {
@@ -8,17 +8,18 @@ export const generateRandomUsers = async (req: Request, res: Response) => {
     const {data} = req.body;
     const {usersCount, reviewsCount, locale, status, tags} = data;
 
-    const users: Partial<User>[] = createRandomUser(usersCount, locale, status);
+    const users: Partial<User>[] = createRandomUser(usersCount, locale, status, reviewsCount);
 
     await User.insertMany(users);
 
     if (Number(reviewsCount) !== 0) {
       const usersId = users.map(user => user._id);
+      const allTags = await findAllTags();
 
       let checkedTags: string[] = [];
 
       if (Number(tags) === 0) {
-        checkedTags = await findAllTags();
+        checkedTags = allTags;
       }
       else {
         checkedTags = [...tags];

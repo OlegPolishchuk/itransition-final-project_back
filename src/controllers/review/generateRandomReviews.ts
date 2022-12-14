@@ -1,25 +1,27 @@
 import {Request, Response} from "express";
 import {Groups} from "../../models/Groups";
-import {createRandomReview} from "../../shared";
+import {createRandomReview, findAllTags, updateReviewsCount} from "../../shared";
 import {Review, Reviews} from "../../models/Review";
 
 
 export const generateRandomReviews = async (req: Request, res: Response) => {
   try{
-    const {userId, count, locale} = req.body;
+    const {userId, reviewsCount, locale, tags} = req.body;
 
-    const groups = await Groups.find();
-    const tags = groups[0].groups;
+    const checkedTags = tags.length ? tags : await findAllTags();
 
-    const reviews: Partial<Review>[] = createRandomReview(count,locale,userId, tags)
+    const reviews: Partial<Review>[] = createRandomReview(reviewsCount,locale,userId, checkedTags)
 
     await Reviews.insertMany(reviews);
+
+    await updateReviewsCount([userId], +reviewsCount)
 
     res.sendStatus(201);
   }
   catch (e) {
+    console.log(e)
     res.status(500).json({
-      message: 'Error at generateRansomReviews Controller'
+      message: 'Error at generateRandomReviews Controller'
     })
   }
 }

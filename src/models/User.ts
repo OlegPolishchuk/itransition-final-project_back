@@ -1,10 +1,10 @@
-import {Schema, model, Types} from "mongoose";
+import {model, Schema} from "mongoose";
 
 export type User = {
   login: string;
   password: string;
   userName: string;
-  reviews: [];
+  reviewsCount:number;
   role: string;
   token: string;
   refreshToken: string;
@@ -24,7 +24,7 @@ const userSchema = new Schema<User>({
   token: {type: String},
   avatar: {type: String},
   refreshToken: {type: String},
-  reviews: [{type: Types.ObjectId, ref: 'Reviews'}],
+  reviewsCount: {type: Number, required: true},
   role: { type: String,required: true },
   status: {type: String, required: true},
   created: {type: Date, required: true},

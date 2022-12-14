@@ -1,0 +1,1 @@
+export {checkNewTags} from './checkNewTags';

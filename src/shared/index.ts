@@ -17,4 +17,6 @@ export {
   createRandomUser,
   createRandomReview,
   findAllTags,
+  updateReviewsCount,
+  addNewTags,
 } from './utils';

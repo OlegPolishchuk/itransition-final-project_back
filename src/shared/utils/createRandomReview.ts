@@ -23,7 +23,7 @@ export const createRandomReview = (count: number, locale: Locales, userId: strin
       userId,
       title: faker.random.word(),
       subtitle: faker.random.word(),
-      tag: tags[randomDigit],
+      tags: [tags[randomDigit]],
       body: faker.lorem.paragraphs(numberOfParagraphs),
       personalScore: faker.datatype.number({max: reviewScore.personal.max}),
       overallScore: faker.datatype.number({max: reviewScore.overall.max}),

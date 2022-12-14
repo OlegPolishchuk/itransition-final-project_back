@@ -42,6 +42,7 @@ export const register = async (req: Request, res: Response) => {
       created: Date.now(),
       lastLogin: Date.now(),
       userName: '',
+      reviewsCount: 0,
       status: userStatus.active,
     });
 
