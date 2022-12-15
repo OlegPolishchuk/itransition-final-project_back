@@ -13,7 +13,7 @@ export const createRandomReview = async (count: number, locale: Locales, userId:
   const userData = {
     userId,
     userName: user!.userName,
-    avatar: user!.avatar,
+    userAvatar: user!.avatar,
   }
 
   Array.from({length: count}).forEach(() => {
