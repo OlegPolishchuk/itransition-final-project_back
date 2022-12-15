@@ -2,10 +2,11 @@ import {Request, Response} from "express";
 import {User} from "../../models/User";
 import cookie from "cookie";
 import {TokenData} from "../constants";
+import {UserType} from "../../types";
 
 const refreshTokenAge = TokenData.refreshTokenAge;
 
-export const findUserByToken = (cb: (req: Request, res: Response, user: User) => void) =>
+export const findUserByToken = (cb: (req: Request, res: Response, user: UserType) => void) =>
   async (req: Request, res: Response) => {
 
   const token = req.headers.authorization
@@ -29,7 +30,7 @@ export const findUserByToken = (cb: (req: Request, res: Response, user: User) =>
           })
         )
 
-        await cb(req, res, user._doc as User);
+        await cb(req, res, user._doc as UserType);
       }
     }
     catch (e) {

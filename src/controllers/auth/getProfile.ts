@@ -1,8 +1,8 @@
 import {Request, Response} from "express";
-import {User} from "../../models/User";
+import {UserType} from "../../types";
 
-export const getProfile = (req: Request, res: Response, user: User, admin:boolean = false) => {
-  const body: Partial<User> = {...user};
+export const getProfile = (req: Request, res: Response, user: UserType, admin:boolean = false) => {
+  const body: Partial<UserType> = {...user};
 
   delete body.password;
   delete body.refreshToken;

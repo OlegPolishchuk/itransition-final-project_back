@@ -1,9 +1,9 @@
 import {Request, Response} from "express";
 import {User} from "../../models/User";
-import {getTokens, TokenData} from "../../shared";
+import {getTokens, TokenData, userStatus} from "../../shared";
 import cookie from "cookie";
-import {getProfile} from "../../controllers/auth/getProfile";
-import {userStatus} from "../../shared";
+import {getProfile} from "../../controllers";
+import {UserType} from "../../types";
 
 const refreshTokenAge = TokenData.refreshTokenAge;
 
@@ -32,13 +32,13 @@ export const socialLogin = async (req: Request, res: Response) => {
     await updateUser(user, res, req)
   }
 
-  async function updateUser(user: User, res: Response, req: Request) {
+  async function updateUser(user: UserType, res: Response, req: Request) {
     const U = await User.findOne({login: user.login})
 
     if (U) {
       const {accessToken, refreshToken} = getTokens(U.id )
 
-      const newUser: User | null = await User.findByIdAndUpdate(
+      const newUser: UserType | null = await User.findByIdAndUpdate(
         U.id,
         {
           token: accessToken,
@@ -57,7 +57,7 @@ export const socialLogin = async (req: Request, res: Response) => {
       )
 
       if (newUser) {
-        await getProfile(req, res, newUser._doc as User);
+        await getProfile(req, res, newUser._doc as UserType);
       }
     }
   }

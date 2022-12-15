@@ -1,10 +1,10 @@
-import {User} from '../../models/User';
+import {UserType} from "../../types";
 
-export const prepareUsersForClient = (users: User[]) => {
-  const result: Partial<User>[] = [];
+export const prepareUsersForClient = (users: UserType[]) => {
+  const result: Partial<UserType>[] = [];
 
   users.forEach(user => {
-    const copy: Partial<User> = {...user._doc};
+    const copy: Partial<UserType> = {...user._doc};
 
     delete copy.password;
     delete copy.refreshToken;

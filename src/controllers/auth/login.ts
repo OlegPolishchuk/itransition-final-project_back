@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import {getTokens, TokenData} from "../../shared";
 import {User} from "../../models/User";
 import {getProfile} from "./getProfile";
+import { UserType } from "../../types";
 
 dotenv.config();
 
@@ -39,7 +40,7 @@ export const login =  async (req: Request, res: Response) => {
     const {accessToken, refreshToken} = getTokens(user.id)
 
     try {
-      const newUser: User | null = await User.findByIdAndUpdate(
+      const newUser: UserType | null = await User.findByIdAndUpdate(
         user._id,
         {
           token: accessToken,
@@ -59,7 +60,7 @@ export const login =  async (req: Request, res: Response) => {
       )
 
       if (newUser) {
-        await getProfile(req, res, newUser._doc as User);
+        await getProfile(req, res, newUser._doc as UserType);
       }
 
     }
