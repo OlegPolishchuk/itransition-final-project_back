@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import {User} from "../../models/User";
 import {getProfile} from "../auth";
+import {UserType} from "../../types";
 
 export const getCurrentUser = async (req: Request, res: Response) => {
     try{
@@ -10,7 +11,7 @@ export const getCurrentUser = async (req: Request, res: Response) => {
         const user = await User.findOne({_id: id}).exec();
 
         if (user) {
-          await getProfile(req, res, user._doc as User, true)
+          await getProfile(req, res, user._doc as UserType, true)
         }
       }
       catch (e) {

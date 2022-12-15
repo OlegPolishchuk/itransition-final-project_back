@@ -1,21 +1,7 @@
 import {model, Schema} from "mongoose";
-
-
-export type Review = {
-  userId: string;
-  title: string;
-  subtitle: string;
-  tags: string[];
-  body: string;
-  personalScore: number;
-  overallScore: number;
-  comments: [];
-  created: Date,
-  updated: Date,
-}
+import { Review } from "../types";
 
 const reviewSchema = new Schema<Review>({
-  userId: {type: String, required: true},
   title: {type: String, required: true},
   subtitle: {type: String, required: true},
   tags: [{type: String, required: true}],
@@ -24,6 +10,9 @@ const reviewSchema = new Schema<Review>({
   overallScore: {type: Number, required: true},
   created: {type: Date, required: true},
   updated: {type: Date, required: true},
+  userId: {type: String, required: true},
+  userName: {type: String, required: true},
+  userAvatar: {type: String},
 })
 
 export const Reviews = model<Review>('Reviews', reviewSchema);

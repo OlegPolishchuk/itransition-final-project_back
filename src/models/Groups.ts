@@ -1,9 +1,7 @@
 import {model, Schema} from "mongoose";
+import { Group } from "../types";
 
-export type Group = {
-  id: string;
-  groups: string[];
-}
+
 
 const groupsSchema = new Schema({
   id: String,

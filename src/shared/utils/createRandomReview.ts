@@ -1,12 +1,20 @@
 import {Locales} from "../../types/Locales";
 import {faker} from "@faker-js/faker";
-import {Review} from "../../models/Review";
 import {reviewScore} from "../../shared";
+import {Review} from "../../types";
+import {User} from "../../models";
 
-export const createRandomReview = (count: number, locale: Locales, userId: string, tags: string[]) => {
+export const createRandomReview = async (count: number, locale: Locales, userId: string, tags: string[]) => {
   faker.locale = locale;
 
   const reviews: Partial<Review>[] = [];
+  const user = await User.findById(userId);
+
+  const userData = {
+    userId,
+    userName: user!.userName,
+    avatar: user!.avatar,
+  }
 
   Array.from({length: count}).forEach(() => {
     const randomDigit = faker.datatype.number({
@@ -20,7 +28,6 @@ export const createRandomReview = (count: number, locale: Locales, userId: strin
     })
 
     const review: Partial<Review> = {
-      userId,
       title: faker.random.word(),
       subtitle: faker.random.word(),
       tags: [tags[randomDigit]],
@@ -29,6 +36,7 @@ export const createRandomReview = (count: number, locale: Locales, userId: strin
       overallScore: faker.datatype.number({max: reviewScore.overall.max}),
       created: new Date(),
       updated: new Date(),
+      ...userData,
     }
 
     reviews.push(review);

@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import {createRandomReview, updateReviewsCount} from "../../shared";
-import {Review, Reviews} from "../../models/Review";
+import {Reviews} from "../../models/Review";
+import {Review} from "../../types";
 
 
 export const generateRandomReviews = async (req: Request, res: Response) => {
@@ -9,7 +10,7 @@ export const generateRandomReviews = async (req: Request, res: Response) => {
 
     const checkedTags = tags.length ? tags : allTags;
 
-    const reviews: Partial<Review>[] = createRandomReview(reviewsCount,locale,userId, checkedTags)
+    const reviews: Partial<Review>[] = await createRandomReview(reviewsCount,locale,userId, checkedTags)
 
     await Reviews.insertMany(reviews);
 

@@ -1,14 +1,15 @@
 import {Request, Response} from "express";
 import {User} from "../../models/User";
 import {createRandomReview, createRandomUser, findAllTags,} from "../../shared";
-import {Review, Reviews} from "../../models/Review";
+import {Reviews} from "../../models/Review";
 import {all} from "axios";
+import {Review, UserType} from "../../types";
 
 export const generateRandomUsers = async (req: Request, res: Response) => {
   try {
     const {usersCount, reviewsCount, locale, status, tags, allTags} = req.body;
 
-    const users: Partial<User>[] = createRandomUser(usersCount, locale, status, reviewsCount);
+    const users: Partial<UserType>[] = createRandomUser(usersCount, locale, status, reviewsCount);
 
     await User.insertMany(users);
 
@@ -26,11 +27,11 @@ export const generateRandomUsers = async (req: Request, res: Response) => {
 
       const reviews: Partial<Review>[] = [];
 
-      usersId.forEach((id) => {
-        const usersReview = createRandomReview(reviewsCount, locale, id as string, checkedTags);
 
-        reviews.push(...usersReview);
-      })
+      for await (let id of usersId) {
+        const usersReview = await createRandomReview(reviewsCount, locale, id as string, checkedTags);
+          reviews.push(...usersReview);
+      }
 
       await Reviews.insertMany(reviews)
     }
