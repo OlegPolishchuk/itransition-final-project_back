@@ -1,14 +1,13 @@
 import {Request, Response} from "express";
-import {Groups} from "../../models/Groups";
-import {createRandomReview, findAllTags, updateReviewsCount} from "../../shared";
+import {createRandomReview, updateReviewsCount} from "../../shared";
 import {Review, Reviews} from "../../models/Review";
 
 
 export const generateRandomReviews = async (req: Request, res: Response) => {
   try{
-    const {userId, reviewsCount, locale, tags} = req.body;
+    const {userId, reviewsCount, locale, tags, allTags} = req.body;
 
-    const checkedTags = tags.length ? tags : await findAllTags();
+    const checkedTags = tags.length ? tags : allTags;
 
     const reviews: Partial<Review>[] = createRandomReview(reviewsCount,locale,userId, checkedTags)
 

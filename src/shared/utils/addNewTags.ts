@@ -11,7 +11,9 @@ export const addNewTags = async (newTags: string[], allTags?: string[]) => {
 
     result = Array.from(new Set(result))
 
-    await Groups.updateMany({}, {groups: result})
+    await Groups.updateMany({}, {groups: result});
+
+    return result;
   }
   catch (e) {
     throw e

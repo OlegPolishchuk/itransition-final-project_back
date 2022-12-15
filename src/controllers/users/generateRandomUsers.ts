@@ -2,11 +2,11 @@ import {Request, Response} from "express";
 import {User} from "../../models/User";
 import {createRandomReview, createRandomUser, findAllTags,} from "../../shared";
 import {Review, Reviews} from "../../models/Review";
+import {all} from "axios";
 
 export const generateRandomUsers = async (req: Request, res: Response) => {
   try {
-    const {data} = req.body;
-    const {usersCount, reviewsCount, locale, status, tags} = data;
+    const {usersCount, reviewsCount, locale, status, tags, allTags} = req.body;
 
     const users: Partial<User>[] = createRandomUser(usersCount, locale, status, reviewsCount);
 
@@ -14,27 +14,25 @@ export const generateRandomUsers = async (req: Request, res: Response) => {
 
     if (Number(reviewsCount) !== 0) {
       const usersId = users.map(user => user._id);
-      const allTags = await findAllTags();
 
       let checkedTags: string[] = [];
 
       if (Number(tags) === 0) {
-        checkedTags = allTags;
+        checkedTags =  allTags;
       }
       else {
         checkedTags = [...tags];
       }
-        console.log(`usersId = `, usersId)
-        const reviews: Partial<Review>[] = [];
 
-        usersId.forEach((id) => {
-          const usersReview = createRandomReview(reviewsCount, locale, id as string, checkedTags);
+      const reviews: Partial<Review>[] = [];
 
-          reviews.push(...usersReview);
-        })
+      usersId.forEach((id) => {
+        const usersReview = createRandomReview(reviewsCount, locale, id as string, checkedTags);
 
-        console.log(`reviews !!! =>`, reviews)
-        await Reviews.insertMany(reviews)
+        reviews.push(...usersReview);
+      })
+
+      await Reviews.insertMany(reviews)
     }
 
     res.sendStatus(201);

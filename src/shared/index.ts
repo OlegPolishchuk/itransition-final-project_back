@@ -19,4 +19,5 @@ export {
   findAllTags,
   updateReviewsCount,
   addNewTags,
+  isNewTags,
 } from './utils';

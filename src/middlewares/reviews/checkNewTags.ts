@@ -1,22 +1,24 @@
 import {NextFunction, Request, Response} from "express";
-import {addNewTags, findAllTags} from "../../shared";
+import {addNewTags, findAllTags, isNewTags} from "../../shared";
 
 export const checkNewTags = async (req: Request, res: Response, next: NextFunction) => {
 
   try {
-    const {data} = req.body;
-    const {tags} = data;
+    const {tags} = req.body;
+
     const allTags = await findAllTags();
 
-    tags.forEach((tag: string) => {
-      if (allTags.indexOf(tag) === -1) {
-        return addNewTags(tags, allTags)
-      }
-    })
+    if (isNewTags(tags, allTags)) {
+      await addNewTags(tags, allTags)
+
+      req.body.tags = tags;
+    } else {
+      req.body.tags = tags;
+      req.body.allTags = allTags;
+    }
 
     next();
-  }
-  catch (e) {
+  } catch (e) {
     res.status(500).json({
       message: 'Error in checkNewTags middleware'
     })

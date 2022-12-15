@@ -7,6 +7,7 @@ import {
   getReviews
 } from "../controllers";
 import {routes} from "../shared";
+import {checkNewTags} from "../middlewares";
 
 export const reviewRouter = Router();
 
@@ -16,7 +17,7 @@ reviewRouter.post('/', createReview);
 reviewRouter.put('/', () => {
 });
 reviewRouter.delete('/', deleteReviews);
-reviewRouter.post(routes.review.random, generateRandomReviews);
+reviewRouter.post(routes.review.random, checkNewTags, generateRandomReviews);
 
 reviewRouter.get(routes.review.userReviews, getReviews);
 reviewRouter.post(routes.review.latest, getLatestReviews);
