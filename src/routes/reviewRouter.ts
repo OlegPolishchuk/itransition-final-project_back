@@ -3,19 +3,19 @@ import {
   createReview,
   deleteReviews,
   generateRandomReviews,
-  getLatestReviews,
-  getReviews
+  getReviews,
+  getCurrentUserReviews
 } from "../controllers";
 import {routes} from "../shared";
 import {checkNewTags} from "../middlewares";
 
 export const reviewRouter = Router();
 
-
+reviewRouter.get('/', getReviews);
 reviewRouter.post('/', createReview);
 
 reviewRouter.delete('/', deleteReviews);
 reviewRouter.post(routes.review.random, checkNewTags, generateRandomReviews);
-reviewRouter.get(routes.review.userReviews, getReviews);
-reviewRouter.get(routes.review.latest, getLatestReviews);
+reviewRouter.get(routes.review.userReviews, getCurrentUserReviews);
+
 

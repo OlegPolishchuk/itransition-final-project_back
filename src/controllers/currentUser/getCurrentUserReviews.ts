@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import {Reviews} from "../../models/Review";
 import {defaultPaginationParams} from "../../shared";
 
-export const getReviews = async (req: Request, res: Response) => {
+export const getCurrentUserReviews = async (req: Request, res: Response) => {
   try{
     const {id, page, limit} = req.query;
 
