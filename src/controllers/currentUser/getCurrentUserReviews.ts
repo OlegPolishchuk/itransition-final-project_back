@@ -4,15 +4,21 @@ import {defaultPaginationParams} from "../../shared";
 
 export const getCurrentUserReviews = async (req: Request, res: Response) => {
   try{
-    const {id, page, limit} = req.query;
+    const {id, page, limit, sortType} = req.query;
 
     const pageNumber = Number(page);
     const limitNumber = Number(limit);
 
+    const sortName: string = sortType as string || 'created';
     const skipCount = pageNumber === 0 ? 0 : pageNumber * limitNumber;
     const take = limitNumber !== 0 ? limitNumber : defaultPaginationParams.limit;
 
-    const reviews = await Reviews.find({userId: id}).skip(skipCount).limit(take);
+    const reviews = await Reviews
+      .find({userId: id})
+      .sort({[sortName]: -1})
+      .skip(skipCount)
+      .limit(take);
+
     const totalCount = await Reviews.find({userId: id}).count();
 
     res.status(200).json({reviews, totalCount})
