@@ -26,12 +26,10 @@ export const getReviews = async (req: Request, res: Response) => {
 
     const totalCount = await Reviews.find().count();
 
+    console.log(resultReviews)
     res.status(200).json({
       totalCount,
       reviews: resultReviews,
-      skip: skipCount,
-      limit: limitNumber,
-      sorted: await Reviews.find(searchId).sort(sort as {[p: string]: SortOrder })
     })
   }
   catch (e) {

@@ -6,3 +6,5 @@ export {
 } from './auth';
 
 export {checkNewTags} from './reviews';
+
+export {MulterFileHandler} from './upload/multerFileHandler';
