@@ -25,6 +25,19 @@ export const updateUserAvatar = async (req: Request, res: Response) => {
 
     const userId = file?.originalname.split('_')[0];
 
+    const user = await User.findOne({_id: userId});
+
+    if (user){
+      const prevAvatarName = user.avatar.split('/').reverse()[0];
+
+      try {
+        await storage.bucket(bucket.name).file(prevAvatarName).delete();
+      }
+      catch (e) {
+        console.log(e)
+      }
+    }
+
     await User.updateOne({_id: userId}, {$set: {avatar: publicUrl}});
     await Reviews.updateMany({userId: userId}, {$set: {userAvatar : publicUrl}})
 
