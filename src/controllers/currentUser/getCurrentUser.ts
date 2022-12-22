@@ -8,8 +8,9 @@ export const getCurrentUser = async (req: Request, res: Response) => {
       const {id} = req.query;
 
       try{
-        const user = await User.findOne({_id: id}).exec();
+        const user = await User.findOne({_id: id});
 
+        console.log(user)
         if (user) {
           await getProfile(req, res, user._doc as UserType, true)
         }

@@ -1,10 +1,14 @@
 import {Request, Response} from "express";
 import {format} from 'util';
-
 import {Storage} from '@google-cloud/storage';
 import {Reviews, User} from "../../models";
+import dotenv from "dotenv";
 
-const storage = new Storage({keyFilename: 'google-cloud.json'});
+dotenv.config();
+
+const storage = new Storage({
+ credentials: JSON.parse(process.env.GOOGLE_CLOUD_KEY as string)
+});
 
 
 export const updateUserAvatar = async (req: Request, res: Response) => {
@@ -27,19 +31,18 @@ export const updateUserAvatar = async (req: Request, res: Response) => {
 
     const user = await User.findOne({_id: userId});
 
-    if (user){
+    if (user) {
       const prevAvatarName = user.avatar.split('/').reverse()[0];
 
       try {
         await storage.bucket(bucket.name).file(prevAvatarName).delete();
-      }
-      catch (e) {
+      } catch (e) {
         console.log(e)
       }
     }
 
-    await User.updateOne({_id: userId}, {$set: {avatar: publicUrl}});
-    await Reviews.updateMany({userId: userId}, {$set: {userAvatar : publicUrl}})
+    await User.updateOne({_id: userId}, {avatar: publicUrl});
+    await Reviews.updateMany({userId: userId}, {$set: {userAvatar: publicUrl}})
 
 
     res.status(201).json({
@@ -47,8 +50,7 @@ export const updateUserAvatar = async (req: Request, res: Response) => {
     })
 
 
-  }
-  catch (e) {
+  } catch (e) {
     console.log(`ERROR`, e)
     return res.status(500).json({
       message: 'Could not upload the file'
