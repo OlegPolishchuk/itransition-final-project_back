@@ -6,8 +6,8 @@ import {defaultPaginationParams} from "../../shared";
 export const getReviews = async (req: Request, res: Response) => {
   try {
     const {sortReviews, reviewId, page, limit} = req.query;
-    // '' : all , created: latest, score: overallScore
-    const sortName: string = sortReviews as string || ''; // all reviews
+
+    const sortName: string = sortReviews as string || '';
     const id = reviewId as string || undefined;
 
     const pageNumber = page ? Number(page) : 0;
@@ -26,7 +26,6 @@ export const getReviews = async (req: Request, res: Response) => {
 
     const totalCount = await Reviews.find().count();
 
-    console.log(resultReviews)
     res.status(200).json({
       totalCount,
       reviews: resultReviews,
