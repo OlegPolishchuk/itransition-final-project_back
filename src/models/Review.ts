@@ -13,7 +13,7 @@ const reviewSchema = new Schema<Review>({
   userId: {type: String, required: true},
   userName: {type: String, required: true},
   userAvatar: {type: String},
-  likes: {type: Number},
+  likes: {type: Number, required: true},
   likesId: [{type: String}],
   overallScoresId: [{type: String}]
 })

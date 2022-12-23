@@ -17,7 +17,7 @@ export const getReviews = async (req: Request, res: Response) => {
 
     const sort = sortName ? {[sortName]: -1} : {created: -1};
     const searchId = id ? {_id: id} : {};
-    console.log(sortName)
+
     const reviews = await Reviews
       .find(searchId)
       .sort(sort as { [p: string]: SortOrder })

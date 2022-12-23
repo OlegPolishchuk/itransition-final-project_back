@@ -9,6 +9,8 @@ export const createReview = async (req: Request, res: Response) => {
 
     const newReview = new Reviews ({
       ...review,
+      likes: 1,
+      likesId: [userId],
       created: Date.now(),
       updated: Date.now()
     })
