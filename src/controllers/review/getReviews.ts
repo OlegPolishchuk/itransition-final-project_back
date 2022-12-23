@@ -5,9 +5,9 @@ import {defaultPaginationParams} from "../../shared";
 
 export const getReviews = async (req: Request, res: Response) => {
   try {
-    const {sortReviews, reviewId, page, limit} = req.query;
+    const {reviewsSortParams, reviewId, page, limit} = req.query;
 
-    const sortName: string = sortReviews as string || '';
+    const sortName: string = reviewsSortParams as string || '';
     const id = reviewId as string || undefined;
 
     const pageNumber = page ? Number(page) : 0;
@@ -17,7 +17,7 @@ export const getReviews = async (req: Request, res: Response) => {
 
     const sort = sortName ? {[sortName]: -1} : {created: -1};
     const searchId = id ? {_id: id} : {};
-
+    console.log(sortName)
     const reviews = await Reviews
       .find(searchId)
       .sort(sort as { [p: string]: SortOrder })

@@ -12,14 +12,16 @@ export const updateReviewScores = async (req: Request, res: Response) => {
       const overallScore = review.overallScore;
       const scoreCount = review.overallScoresId.length;
 
-      const updatedScore = (overallScore + score) / (scoreCount + 1);
+      const updatedScore = ((overallScore + score) / (scoreCount + 1)).toFixed(1);
 
       await Reviews.updateOne(
         {_id: reviewId},
         {$set: {overallScore: updatedScore}, $push: {overallScoresId: userId}})
 
 
-      res.status(201).json({review})
+      const updatesReview = await Reviews.findById(reviewId);
+
+      res.status(201).json({review: updatesReview})
     }
 
   }
