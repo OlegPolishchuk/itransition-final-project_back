@@ -8,6 +8,7 @@ export {
   reviewScore,
   defaultUsersQueryParams,
   defaultPaginationParams,
+  googleCloudBucket,
 } from './constants';
 
 export {

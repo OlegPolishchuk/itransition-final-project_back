@@ -7,3 +7,4 @@ export {baseReviewGroups} from './baseReviewGroups';
 export {reviewScore} from './reviewScore';
 export {defaultUsersQueryParams} from './defaultUsersQueryParams';
 export {defaultPaginationParams} from './defaultPaginationParams';
+export {googleCloudBucket} from './googleCloudBucket';

@@ -25,6 +25,7 @@ export const routes = {
     new: '/new',
     like: '/like',
     score: '/score',
+    image: '/image',
   },
   tags: {
     baseUrl: '/tags',

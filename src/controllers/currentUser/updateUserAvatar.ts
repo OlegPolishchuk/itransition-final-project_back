@@ -3,6 +3,7 @@ import {format} from 'util';
 import {Storage} from '@google-cloud/storage';
 import {Reviews, User} from "../../models";
 import dotenv from "dotenv";
+import {googleCloudBucket} from "../../shared";
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ export const updateUserAvatar = async (req: Request, res: Response) => {
   try {
     const file = req.file;
 
-    const bucket = storage.bucket('itransition-app')
+    const bucket = storage.bucket(googleCloudBucket)
 
     await storage.bucket(bucket.name).upload(file?.path as string, {
       metadata: {
