@@ -37,7 +37,7 @@ export const updateUserAvatar = async (req: Request, res: Response) => {
       try {
         await storage.bucket(bucket.name).file(prevAvatarName).delete();
       } catch (e) {
-        console.log(e)
+        console.log(`Не удалось удалить файл ${prevAvatarName}`)
       }
     }
 

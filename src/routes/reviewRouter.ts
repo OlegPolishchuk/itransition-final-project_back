@@ -12,7 +12,7 @@ import {checkNewTags} from "../middlewares";
 export const reviewRouter = Router();
 
 reviewRouter.get('/', getReviews);
-reviewRouter.post('/', createReview);
+reviewRouter.post(routes.review.new, createReview);
 
 reviewRouter.delete('/', deleteReviews);
 reviewRouter.post(routes.review.random, checkNewTags, generateRandomReviews);

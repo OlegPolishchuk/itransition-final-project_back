@@ -4,13 +4,21 @@ import {Reviews} from "../../models/Review";
 export const createReview = async (req: Request, res: Response) => {
 
   try{
-    const {userid, review} = req.body;
+    const {review} = req.body;
+    const userId = review.userId;
 
-    await Reviews.updateOne({userid}, {$set: {...review}})
+    const newReview = new Reviews ({
+      ...review,
+      created: Date.now(),
+      updated: Date.now()
+    })
 
-    res.sendStatus(201);
+    await newReview.save();
+
+    res.sendStatus(201)
   }
   catch (e) {
+    console.log(e)
     res.status(500).json({
       message: 'error at createReview Controller', e
     })

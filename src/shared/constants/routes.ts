@@ -22,6 +22,7 @@ export const routes = {
     random: '/random',
     latest: '/latest',
     userReviews: '/userReviews',
+    new: '/new',
   },
   tags: {
     baseUrl: '/tags',
