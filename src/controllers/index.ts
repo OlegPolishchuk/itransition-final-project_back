@@ -25,7 +25,9 @@ export {
   createReview,
   generateRandomReviews,
   getReviews,
-  deleteReviews
+  deleteReviews,
+  updateReviewLikes,
+  updateReviewScores,
 } from './review';
 
 export {getAllTags, updateTags} from './tags';

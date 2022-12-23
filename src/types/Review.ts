@@ -11,4 +11,7 @@ export type Review = {
   userId: string;
   userName: string;
   userAvatar: string;
+  likes: number;
+  likesId: string[],
+  overallScoresId: string[],
 }

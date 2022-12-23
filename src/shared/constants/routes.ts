@@ -23,6 +23,8 @@ export const routes = {
     latest: '/latest',
     userReviews: '/userReviews',
     new: '/new',
+    like: '/like',
+    score: '/score',
   },
   tags: {
     baseUrl: '/tags',
