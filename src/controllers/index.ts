@@ -31,4 +31,4 @@ export {
   uploadReviewImage,
 } from './review';
 
-export {getAllTags, updateTags} from './tags';
+export {getAllTags, updateTags, deleteTags} from './tags';

@@ -31,9 +31,12 @@ export const createRandomReview = async (count: number, locale: Locales, userId:
       title: faker.random.word(),
       subtitle: faker.random.word(),
       tags: [tags[randomDigit]],
-      body: faker.lorem.paragraphs(numberOfParagraphs),
+      body: `![](${faker.image.image()}) \n\n ${generateParagraphs(numberOfParagraphs)}`,
       personalScore: faker.datatype.number({max: reviewScore.personal.max}),
       overallScore: faker.datatype.number({max: reviewScore.overall.max}),
+      likes: faker.datatype.number({max: 150}),
+      likesId: [],
+      overallScoresId: [],
       created: new Date(),
       updated: new Date(),
       ...userData,
@@ -43,4 +46,14 @@ export const createRandomReview = async (count: number, locale: Locales, userId:
   })
 
   return reviews
+}
+
+function generateParagraphs(numberOfParagraphs: number) {
+  let result = '';
+
+  for (let i = 0; i < numberOfParagraphs; i++) {
+    result += faker.lorem.paragraphs(1) + '\n\n'
+  }
+
+  return result;
 }

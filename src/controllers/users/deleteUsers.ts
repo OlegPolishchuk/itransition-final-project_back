@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import {User} from "../../models/User";
 import {userRoles} from "../../shared";
+import {Reviews} from "../../models";
 
 export const deleteUsers = async (req: Request, res: Response) => {
   try {
@@ -19,11 +20,17 @@ export const deleteUsers = async (req: Request, res: Response) => {
 
       for await (let userId of idList) {
         await User.deleteOne({_id: userId})
+
+        await Reviews.deleteMany({userId})
       }
+
 
       return res.sendStatus(204);
     } else {
-      const result = await User.deleteOne({_id: id});
+      await User.deleteOne({_id: id});
+
+      await Reviews.deleteOne({userId: id})
+
       return res.sendStatus(204);
     }
   } catch (e) {

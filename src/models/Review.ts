@@ -14,8 +14,8 @@ const reviewSchema = new Schema<Review>({
   userName: {type: String, required: true},
   userAvatar: {type: String},
   likes: {type: Number, required: true},
-  likesId: [{type: String}],
-  overallScoresId: [{type: String}]
+  likesId: [{type: String, required: true}],
+  overallScoresId: [{type: String, required: true}]
 })
 
 export const Reviews = model<Review>('Reviews', reviewSchema);

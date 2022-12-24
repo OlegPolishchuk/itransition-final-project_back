@@ -9,7 +9,7 @@ export const getAllTags = async (req: Request, res: Response) => {
   }
   catch (e) {
     res.status(500).json({
-      message: 'Error at getAllTags Controller'
+      message: 'Error at getAllTags Controller',e
     })
   }
 }
