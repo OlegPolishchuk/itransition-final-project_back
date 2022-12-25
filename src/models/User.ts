@@ -13,6 +13,7 @@ const userSchema = new Schema<UserType>({
   status: {type: String, required: true},
   created: {type: Date, required: true},
   lastLogin: {type: Date, required: true},
+  likes: {type: Number, required: true},
 })
 
 export const User = model<UserType>('User', userSchema);

@@ -16,12 +16,11 @@ export const getCurrentUserReviews = async (req: Request, res: Response) => {
     const reviews = await Reviews
       .find({userId: id})
       .sort({[sortName]: -1})
-      .skip(skipCount)
-      .limit(take);
 
+    const resultReviews = reviews.slice(skipCount, limitNumber + skipCount);
     const totalCount = await Reviews.find({userId: id}).count();
 
-    res.status(200).json({reviews, totalCount})
+    res.status(200).json({reviews: resultReviews, totalCount})
   }
   catch (e) {
     res.status(500).json({

@@ -10,6 +10,7 @@ export type Review = {
   updated: Date,
   userId: string;
   userName: string;
+  userLikes: number;
   userAvatar: string;
   likes: number;
   likesId: string[],

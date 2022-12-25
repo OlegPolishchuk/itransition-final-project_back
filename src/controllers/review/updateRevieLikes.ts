@@ -1,12 +1,18 @@
 import {Request, Response} from "express";
-import {Reviews} from "../../models";
+import {Reviews, User} from "../../models";
 
 export const updateReviewLikes = async (req: Request, res: Response) => {
 
   try {
     const {reviewId, userId} = req.body;
 
-    await Reviews.updateOne({_id: reviewId}, {$inc: {likes: 1}, $push: {likesId: userId}})
+    await Reviews.updateOne({_id: reviewId}, {$inc: {likes: 1}, $push: {likesId: userId}});
+    await Reviews.updateMany({userId}, {$inc: {userLikes: 1}});
+
+    await User.updateOne({_id: userId}, {$inc: {likes: 1} });
+
+    const reviews = await Reviews.find({userId})
+    console.log(reviews)
 
     const review = await Reviews.findById(reviewId);
 

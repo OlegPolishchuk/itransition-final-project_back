@@ -12,4 +12,5 @@ export type UserType = {
   created: Date;
   _doc: object;
   _id?: string;
+  likes: number;
 }

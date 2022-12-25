@@ -21,4 +21,5 @@ export {
   updateReviewsCount,
   addNewTags,
   isNewTags,
+  getUserLikes,
 } from './utils';

@@ -44,6 +44,7 @@ export const register = async (req: Request, res: Response) => {
       userName: '',
       reviewsCount: 0,
       status: userStatus.active,
+      likes: 0,
     });
 
     await user.save();

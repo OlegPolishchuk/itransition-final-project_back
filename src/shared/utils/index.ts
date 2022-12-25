@@ -7,3 +7,4 @@ export {findAllTags} from './findAllTags';
 export {updateReviewsCount} from './updateReviewsCount';
 export {addNewTags} from './addNewTags';
 export {isNewTags} from './isNewTags';
+export {getUserLikes} from './getUserLikes';

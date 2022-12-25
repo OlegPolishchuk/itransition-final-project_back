@@ -25,7 +25,7 @@ export const getUsers = async (req: Request, res: Response) => {
     const users = await User.find().skip(skipCount).limit(take);
     const count = await User.find().count();
 
-    const usersToClient = prepareUsersForClient(users)
+    const usersToClient = await prepareUsersForClient(users)
 
     res.status(200).json({users: usersToClient, count})
   }

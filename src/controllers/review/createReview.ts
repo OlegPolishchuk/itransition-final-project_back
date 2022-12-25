@@ -1,16 +1,28 @@
 import {Request, Response} from "express";
 import {Reviews} from "../../models/Review";
+import {User} from "../../models";
 
 export const createReview = async (req: Request, res: Response) => {
 
   try{
     const {review} = req.body;
     const userId = review.userId;
+    let userName = review.userName;
+    let userLikes ;
+
+    if (!userName || !userLikes) {
+      const user = await User.findById(userId);
+
+      userName = user!.login;
+      userLikes = user!.likes;
+    }
 
     const newReview = new Reviews ({
       ...review,
-      likes: 1,
-      likesId: [userId],
+      userName,
+      likes: 0,
+      userLikes: userLikes,
+      likesId: [],
       created: Date.now(),
       updated: Date.now()
     })
