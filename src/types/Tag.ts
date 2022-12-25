@@ -1,4 +1,4 @@
-export type Group = {
+export type Tag = {
   id: string;
   groups: string[];
 }

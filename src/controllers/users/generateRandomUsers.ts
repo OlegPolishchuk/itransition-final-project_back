@@ -1,8 +1,7 @@
 import {Request, Response} from "express";
 import {User} from "../../models/User";
-import {createRandomReview, createRandomUser, findAllTags,} from "../../shared";
+import {createRandomReview, createRandomUser,} from "../../shared";
 import {Reviews} from "../../models/Review";
-import {all} from "axios";
 import {Review, UserType} from "../../types";
 
 export const generateRandomUsers = async (req: Request, res: Response) => {
@@ -42,6 +41,6 @@ export const generateRandomUsers = async (req: Request, res: Response) => {
     console.log(e)
     res
       .status(500)
-      .json({message: 'Error at generateRandomUser Controller'})
+      .json({message: 'Error at generateRandomUser Controller', e})
   }
 }

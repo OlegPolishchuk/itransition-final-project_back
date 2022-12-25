@@ -1,7 +1,8 @@
-import {Groups} from "../../models/Groups";
+import {Tags} from "../../models";
 
 export const findAllTags = async () => {
-  const tagsCollections = await Groups.find()
+  const tagsCollections = await Tags.find({})
 
+  console.log(tagsCollections)
   return tagsCollections[0].groups;
 }

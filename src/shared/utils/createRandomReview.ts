@@ -14,6 +14,7 @@ export const createRandomReview = async (count: number, locale: Locales, userId:
     userId,
     userName: user!.userName,
     userAvatar: user!.avatar,
+    userLikes: user!.likes,
   }
 
   Array.from({length: count}).forEach(() => {
@@ -34,7 +35,7 @@ export const createRandomReview = async (count: number, locale: Locales, userId:
       body: `![](${faker.image.image()}) \n\n ${generateParagraphs(numberOfParagraphs)}`,
       personalScore: faker.datatype.number({max: reviewScore.personal.max}),
       overallScore: faker.datatype.number({max: reviewScore.overall.max}),
-      likes: faker.datatype.number({max: 150}),
+      likes: 0,
       likesId: [],
       overallScoresId: [],
       created: new Date(),

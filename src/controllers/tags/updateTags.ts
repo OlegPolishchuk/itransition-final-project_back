@@ -1,13 +1,11 @@
 import {Request, Response} from "express";
-import {Groups} from "../../models/Groups";
+import {Tags} from "../../models";
 
 export const updateTags = async (req: Request, res: Response) => {
   try{
     const {newTag} = req.body;
 
-    console.log(newTag)
-
-    await Groups.updateMany({}, {$push: {groups: newTag}});
+    await Tags.updateMany({}, {$push: {groups: newTag}});
 
     res.sendStatus(204);
   }

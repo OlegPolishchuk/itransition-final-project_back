@@ -8,6 +8,7 @@ export const getAllTags = async (req: Request, res: Response) => {
     res.status(200).json(tags);
   }
   catch (e) {
+    console.log(e)
     res.status(500).json({
       message: 'Error at getAllTags Controller',e
     })

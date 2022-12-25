@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {Groups} from "../../models";
+import {Tags} from "../../models";
 
 export const deleteTags = async (req: Request, res: Response) => {
 
@@ -11,7 +11,7 @@ export const deleteTags = async (req: Request, res: Response) => {
     }
 
 
-    await Groups.updateOne({}, {$pullAll: {groups: idList}})
+    await Tags.updateOne({}, {$pullAll: {groups: idList}})
 
     res.sendStatus(204);
   }

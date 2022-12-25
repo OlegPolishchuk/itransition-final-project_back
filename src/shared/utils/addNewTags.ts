@@ -1,4 +1,4 @@
-import {Groups} from "../../models/Groups";
+import {Tags} from "../../models";
 import {findAllTags} from "../../shared";
 
 export const addNewTags = async (newTags: string[], allTags?: string[]) => {
@@ -11,7 +11,7 @@ export const addNewTags = async (newTags: string[], allTags?: string[]) => {
 
     result = Array.from(new Set(result))
 
-    await Groups.updateMany({}, {groups: result});
+    await Tags.updateMany({}, {groups: result});
 
     return result;
   }

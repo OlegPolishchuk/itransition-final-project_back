@@ -1,5 +1,5 @@
 import {model, Schema} from "mongoose";
-import { Group } from "../types";
+import { Tag } from "../types";
 
 
 
@@ -8,4 +8,4 @@ const groupsSchema = new Schema({
   groups: [{type: String}],
 })
 
-export const Groups = model<Group>('Groups', groupsSchema);
+export const Tags = model<Tag>('Tags', groupsSchema);
