@@ -4,6 +4,7 @@ import { Review } from "../types";
 const reviewSchema = new Schema<Review>({
   title: {type: String, required: true},
   subtitle: {type: String, required: true},
+  group: {type: String, required: true},
   tags: [{type: String, required: true}],
   body: {type: String, required: true},
   personalScore: {type: Number, required: true},

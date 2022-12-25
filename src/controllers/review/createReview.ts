@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
-import {Reviews} from "../../models/Review";
-import {User} from "../../models";
+import {Reviews, User} from "../../models";
+
 
 export const createReview = async (req: Request, res: Response) => {
 

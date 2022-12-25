@@ -1,12 +1,12 @@
 import {Locales} from "../../types/Locales";
 import {faker} from "@faker-js/faker";
-import {reviewScore} from "../../shared";
+import {groups, reviewScore} from "../../shared";
 import {Review} from "../../types";
 import {User} from "../../models";
 
-export const createRandomReview = async (count: number, locale: Locales, userId: string, tags: string[]) => {
+export const createRandomReview = async (count: number, locale: Locales, userId: string, tags: string[], group?: string) => {
   faker.locale = locale;
-
+  console.log('group', group)
   const reviews: Partial<Review>[] = [];
   const user = await User.findById(userId);
 
@@ -28,9 +28,14 @@ export const createRandomReview = async (count: number, locale: Locales, userId:
       max: 30,
     })
 
+    const randomGroupsIndex = faker.datatype.number({
+      max: groups.length - 1
+    })
+
     const review: Partial<Review> = {
       title: faker.random.word(),
       subtitle: faker.random.word(),
+      group: group ? group : groups[randomGroupsIndex],
       tags: [tags[randomDigit]],
       body: `![](${faker.image.image()}) \n\n ${generateParagraphs(numberOfParagraphs)}`,
       personalScore: faker.datatype.number({max: reviewScore.personal.max}),

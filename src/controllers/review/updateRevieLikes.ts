@@ -11,8 +11,6 @@ export const updateReviewLikes = async (req: Request, res: Response) => {
 
     await User.updateOne({_id: userId}, {$inc: {likes: 1} });
 
-    const reviews = await Reviews.find({userId})
-    console.log(reviews)
 
     const review = await Reviews.findById(reviewId);
 
