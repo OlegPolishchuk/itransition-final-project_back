@@ -29,6 +29,7 @@ export {
   updateReviewLikes,
   updateReviewScores,
   uploadReviewImage,
+  updateReview,
 } from './review';
 
 export {getAllTags, updateTags, deleteTags} from './tags';
