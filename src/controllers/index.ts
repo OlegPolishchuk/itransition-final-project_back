@@ -33,3 +33,5 @@ export {
 } from './review';
 
 export {getAllTags, updateTags, deleteTags} from './tags';
+
+export {socketController} from './socket';

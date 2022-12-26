@@ -1,5 +1,6 @@
 import {Request, Response} from "express";
 import {Reviews, User} from "../../models";
+import {createCommentsBase} from "../../shared";
 
 
 export const createReview = async (req: Request, res: Response) => {
@@ -28,6 +29,12 @@ export const createReview = async (req: Request, res: Response) => {
     })
 
     await newReview.save();
+
+    const lastReview = await Reviews.findOne({userId, $orderby: {_id: -1}});
+
+    const reviewId = lastReview!._id;
+
+    await createCommentsBase(reviewId.toString())
 
     res.sendStatus(201)
   }

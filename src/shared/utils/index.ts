@@ -8,3 +8,4 @@ export {updateReviewsCount} from './updateReviewsCount';
 export {addNewTags} from './addNewTags';
 export {isNewTags} from './isNewTags';
 export {getUserLikes} from './getUserLikes';
+export {createCommentsBase} from './createCommentsBase';

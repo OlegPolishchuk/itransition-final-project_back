@@ -23,4 +23,5 @@ export {
   addNewTags,
   isNewTags,
   getUserLikes,
+  createCommentsBase,
 } from './utils';

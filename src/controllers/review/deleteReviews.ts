@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {updateReviewsCount} from "../../shared";
-import {User, Reviews} from "../../models";
+import {User, Reviews, Comments} from "../../models";
 
 export const deleteReviews = async (req: Request, res: Response) => {
   try{
@@ -24,6 +24,7 @@ export const deleteReviews = async (req: Request, res: Response) => {
        }
 
        await Reviews.deleteOne({_id: id});
+       await Comments.deleteOne({reviewId: id})
      }
    }
    else  {
@@ -39,6 +40,7 @@ export const deleteReviews = async (req: Request, res: Response) => {
      }
 
      await Reviews.deleteOne({_id: reviewsId})
+     await Comments.deleteOne({reviewId: reviewsId})
    }
 
 

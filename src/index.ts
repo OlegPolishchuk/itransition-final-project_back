@@ -1,14 +1,22 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import http from 'http';
+import {Server} from 'socket.io';
+import {socketController} from "./controllers";
 
 import mongoose from "mongoose";
 import {authRouter, usersRouter, userRouter, reviewRouter, tagsRouter} from "./routes";
 import {routes} from "./shared";
 import bodyParser from "body-parser";
+import {setUsername} from "./middlewares";
 
 
 const app = express();
+const server = http.createServer(app);
+
+export const io = new Server(server, {cors: {origin: '*'}});
+
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
@@ -31,13 +39,15 @@ app.use(routes.user.baseUrl, userRouter)
 app.use(routes.review.baseUrl, reviewRouter)
 app.use(routes.tags.baseUrl, tagsRouter)
 
+io.use(setUsername);
+io.on('connection', socketController)
 
 const start = async () => {
 
   try{
     await mongoose.connect(DB_URL)
 
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log(`Server started on port ${PORT}`)
     })
   } catch (e) {

@@ -8,3 +8,5 @@ export {
 export {checkNewTags} from './reviews';
 
 export {MulterFileHandler} from './upload/multerFileHandler';
+
+export {setUsername} from './socket';

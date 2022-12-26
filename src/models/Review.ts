@@ -1,6 +1,7 @@
 import {model, Schema} from "mongoose";
 import { Review } from "../types";
 
+
 const reviewSchema = new Schema<Review>({
   title: {type: String, required: true},
   subtitle: {type: String, required: true},
