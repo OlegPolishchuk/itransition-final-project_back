@@ -42,6 +42,7 @@ export const createRandomReview = async (count: number, locale: Locales, userId:
       overallScore: faker.datatype.number({max: reviewScore.overall.max}),
       likes: 0,
       likesId: [],
+      comments: 0,
       overallScoresId: [],
       created: new Date(),
       updated: new Date(),

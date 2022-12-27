@@ -41,7 +41,7 @@ export const register = async (req: Request, res: Response) => {
       role,
       created: Date.now(),
       lastLogin: Date.now(),
-      userName: '',
+      userName: email,
       reviewsCount: 0,
       status: userStatus.active,
       likes: 0,

@@ -11,7 +11,6 @@ export const socialLogin = async (req: Request, res: Response) => {
 
   const {login} = req.body;
 
-  console.log(login)
 
   const user = await User.findOne({login});
 

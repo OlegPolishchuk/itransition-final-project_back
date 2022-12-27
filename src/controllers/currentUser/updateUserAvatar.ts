@@ -28,17 +28,20 @@ export const updateUserAvatar = async (req: Request, res: Response) => {
       `https://storage.cloud.google.com/${bucket.name}/${file?.originalname}`
     )
 
+    console.log(`publicUrl`, publicUrl)
+    console.log(`file =>`, file)
     const userId = file?.originalname.split('_')[0];
 
     const user = await User.findOne({_id: userId});
 
     if (user) {
-      const prevAvatarName = user.avatar.split('/').reverse()[0];
 
       try {
+        const prevAvatarName = user.avatar.split('/').reverse()[0];
         await storage.bucket(bucket.name).file(prevAvatarName).delete();
-      } catch (e) {
-        console.log(`Не удалось удалить файл ${prevAvatarName}`)
+      }
+      catch (e) {
+        console.log(`Could not delete prev avatar `)
       }
     }
 

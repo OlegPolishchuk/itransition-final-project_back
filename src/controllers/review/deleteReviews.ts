@@ -23,8 +23,8 @@ export const deleteReviews = async (req: Request, res: Response) => {
          await Reviews.updateMany({userId}, {$inc: {userLikes: -reviewLikes}});
        }
 
-       await Reviews.deleteOne({_id: id});
        await Comments.deleteOne({reviewId: id})
+       await Reviews.deleteOne({_id: id});
      }
    }
    else  {
@@ -39,8 +39,8 @@ export const deleteReviews = async (req: Request, res: Response) => {
        await Reviews.updateMany({userId}, {$inc: {userLikes: -reviewLikes}});
      }
 
-     await Reviews.deleteOne({_id: reviewsId})
-     await Comments.deleteOne({reviewId: reviewsId})
+     await Comments.deleteOne({reviewId: reviewsId});
+     await Reviews.deleteOne({_id: reviewsId});
    }
 
 

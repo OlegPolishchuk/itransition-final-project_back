@@ -6,7 +6,7 @@ export type Review = {
   body: string;
   personalScore: number;
   overallScore: number;
-  comments: [];
+  comments: number;
   created: Date,
   updated: Date,
   userId: string;

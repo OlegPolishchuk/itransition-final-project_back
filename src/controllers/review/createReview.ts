@@ -24,6 +24,7 @@ export const createReview = async (req: Request, res: Response) => {
       likes: 0,
       userLikes: userLikes,
       likesId: [],
+      comments: 0,
       created: Date.now(),
       updated: Date.now()
     })
