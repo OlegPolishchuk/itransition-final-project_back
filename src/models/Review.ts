@@ -22,4 +22,6 @@ const reviewSchema = new Schema<Review>({
   comments: {type: Number, required: true}
 })
 
+reviewSchema.index({'$**' : 'text'});
+
 export const Reviews = model<Review>('Reviews', reviewSchema);

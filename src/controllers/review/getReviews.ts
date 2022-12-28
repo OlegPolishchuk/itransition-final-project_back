@@ -5,7 +5,7 @@ import {defaultPaginationParams} from "../../shared";
 
 export const getReviews = async (req: Request, res: Response) => {
   try {
-    const {reviewsSortParams, reviewId, page, limit} = req.query;
+    const {reviewsSortParams, reviewId, page, limit, search} = req.query;
 
     const sortName: string = reviewsSortParams as string || '';
     const id = reviewId as string || undefined;
@@ -15,16 +15,26 @@ export const getReviews = async (req: Request, res: Response) => {
 
     const skipCount = pageNumber === 0 ? 0 : pageNumber * limitNumber;
 
-    const sort = sortName ? {[sortName]: -1} : {created: -1};
+    const sort: { [p: string]: SortOrder } = sortName ? {[sortName]: -1} : {created: -1};
     const searchId = id ? {_id: id} : {};
 
-    const reviews = await Reviews
-      .find(searchId)
-      .sort(sort as { [p: string]: SortOrder })
 
+    let reviews;
+
+    if (search) {
+      reviews = await Reviews
+        .find({$text: {$search: `"${search}"`}}, {score: {$meta: "textScore"}})
+        .sort({score:{$meta:"textScore"}})
+    }
+    else {
+      reviews = await Reviews
+        .find(searchId)
+        .sort(sort)
+    }
+
+    console.log(reviews)
     const resultReviews = reviews.slice(skipCount, limitNumber + skipCount);
-
-    const totalCount = await Reviews.find().count();
+    const totalCount = reviews.length;
 
     res.status(200).json({
       totalCount,

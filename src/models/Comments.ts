@@ -7,4 +7,5 @@ const commentsSchema = new Schema<ReviewComments>({
   reviewId: {type: String, required: true}
 })
 
+commentsSchema.index({'$**': 'text'});
 export const Comments = model<ReviewComments>('Comments', commentsSchema);

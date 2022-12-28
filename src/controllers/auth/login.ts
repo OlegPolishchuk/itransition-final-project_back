@@ -3,7 +3,7 @@ import {validationResult} from "express-validator";
 import cookie from "cookie";
 import bcrypt from "bcrypt";
 import dotenv from 'dotenv';
-import {getTokens, TokenData} from "../../shared";
+import {getTokens, TokenData, userStatus} from "../../shared";
 import {User} from "../../models/User";
 import {getProfile} from "./getProfile";
 import { UserType } from "../../types";
@@ -31,10 +31,17 @@ export const login =  async (req: Request, res: Response) => {
       return res.status(400).json({message: 'Пользователь не найден'})
     }
 
+
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return res.status(400).json({message: 'Неверный пароль'})
+    }
+
+    if (user.status === userStatus.blocked) {
+      return res.status(401).json({
+        message: 'user has blocked'
+      })
     }
 
     const {accessToken, refreshToken} = getTokens(user.id)
