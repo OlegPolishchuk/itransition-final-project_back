@@ -32,7 +32,6 @@ export const getReviews = async (req: Request, res: Response) => {
         .sort(sort)
     }
 
-    console.log(reviews)
     const resultReviews = reviews.slice(skipCount, limitNumber + skipCount);
     const totalCount = reviews.length;
 

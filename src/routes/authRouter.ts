@@ -19,13 +19,11 @@ import {findUserByToken} from "../shared";
 
 export const authRouter = Router();
 
-//localhost:3000/api/auth/register
 authRouter.post(
   routes.auth.register,
   [authMiddleware.checkEmail, authMiddleware.checkPassword],
   register);
 
-//localhost:3000/api/auth/login
 authRouter.post(
   routes.auth.login,
   [loginMiddleware.checkEmail, loginMiddleware.checkPassword],

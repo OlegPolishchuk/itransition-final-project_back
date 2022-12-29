@@ -2,15 +2,16 @@ import {Request, Response} from "express";
 import {getTokens, TokenData} from "../../shared";
 import {User} from "../../models/User";
 import cookie from "cookie";
+import {DecodedJWT} from "../../types";
 
 const accessTokenAge = TokenData.accessTokenAge;
 const refreshTokenAge = TokenData.refreshTokenAge;
 
 export const refreshToken = async (req: Request, res: Response) => {
-  const {refreshToken} = cookie.parse(req.headers.cookie as string)
+  const decoded = req.user as DecodedJWT;
 
   try {
-    const user = await User.findOne({refreshToken}).exec();
+    const user = await User.findOne({_id: decoded.userId}).exec();
 
     if (!user) {
       console.log(`REFRESH TOKEN`, refreshToken)
@@ -46,7 +47,7 @@ export const refreshToken = async (req: Request, res: Response) => {
   } catch (e) {
     console.log('error !!!!!!!!!!!!!!!!!!', e)
     res.status(500).json({
-      error: 'refreshToken error'
+      error: 'refreshToken error', e
     })
   }
 }

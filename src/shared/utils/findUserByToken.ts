@@ -2,19 +2,17 @@ import {Request, Response} from "express";
 import {User} from "../../models/User";
 import cookie from "cookie";
 import {TokenData} from "../constants";
-import {UserType} from "../../types";
+import {DecodedJWT, UserType} from "../../types";
 
 const refreshTokenAge = TokenData.refreshTokenAge;
 
 export const findUserByToken = (cb: (req: Request, res: Response, user: UserType) => void) =>
   async (req: Request, res: Response) => {
 
-  const token = req.headers.authorization
-      ? req.headers.authorization.split(' ')[1]
-      : '';
+  const decoded = req.user as DecodedJWT;
 
     try{
-      const user = await User.findOne({token}).exec();
+      const user = await User.findOne({_id: decoded.userId});
 
       if (!user) {
         res.status(401).json({error: 'You are not authorized'})
