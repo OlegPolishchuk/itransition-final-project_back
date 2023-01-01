@@ -8,15 +8,14 @@ dotenv.config();
 const signatureRefresh = process.env.JWT_REFRESH_SECRET as string;
 
 export const verifyRefreshToken = (req: Request, res: Response, next: NextFunction) => {
-  const {refreshToken} = cookie.parse(req.headers.cookie as string)
-
-  const stringRefreshToken = refreshToken.toString();
-  if (!refreshToken) {
-    return res.status(401);
-  }
-  console.log(stringRefreshToken);
   try {
-    const decoded = jwt.verify(stringRefreshToken, signatureRefresh)
+    const {refreshToken} = cookie.parse(req.headers.cookie as string)
+
+    if (!refreshToken) {
+      return res.status(401);
+    }
+
+    const decoded = jwt.verify(refreshToken, signatureRefresh)
 
     req.user = decoded;
 

@@ -8,4 +8,5 @@ const commentsSchema = new Schema<ReviewComments>({
 })
 
 commentsSchema.index({'$**': 'text'});
+
 export const Comments = model<ReviewComments>('Comments', commentsSchema);

@@ -8,4 +8,6 @@ const groupsSchema = new Schema({
   groups: [{type: String}],
 })
 
+groupsSchema.index({groups : 'text'});
+
 export const Tags = model<Tag>('Tags', groupsSchema);

@@ -3,12 +3,14 @@ import { SortOrder } from "mongoose";
 import {Reviews} from "../../models/Review";
 import {defaultPaginationParams} from "../../shared";
 
+
 export const getReviews = async (req: Request, res: Response) => {
   try {
-    const {reviewsSortParams, reviewId, page, limit, search} = req.query;
+    const {reviewsSortParams, reviewId, page, limit, search, tags} = req.query;
 
     const sortName: string = reviewsSortParams as string || '';
     const id = reviewId as string || undefined;
+    const tagsParams = tags ? tags as string[] : [];
 
     const pageNumber = page ? Number(page) : 0;
     const limitNumber = limit ? Number(limit) : defaultPaginationParams.limit;
@@ -19,12 +21,26 @@ export const getReviews = async (req: Request, res: Response) => {
     const searchId = id ? {_id: id} : {};
 
 
-    let reviews;
+    let reviews = [];
 
     if (search) {
       reviews = await Reviews
         .find({$text: {$search: `"${search}"`}}, {score: {$meta: "textScore"}})
         .sort({score:{$meta:"textScore"}})
+    }
+    else if (tagsParams.length > 0) {
+      console.log(tagsParams.join(' '))
+      reviews = await Reviews
+        .find({tags: tagsParams})
+        .sort(sort)
+
+      if (reviews.length === 0) {
+        for await (let tag of tagsParams) {
+          const searchReviews = await Reviews.find({tags: tag})
+          reviews = [...reviews, ...searchReviews];
+        }
+      }
+
     }
     else {
       reviews = await Reviews
@@ -42,7 +58,7 @@ export const getReviews = async (req: Request, res: Response) => {
   }
   catch (e) {
     res.status(500).json({
-      message: 'Error at getLatestReview Controller'
+      message: 'Error at getReviews Controller', e
     })
   }
 }
