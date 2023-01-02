@@ -9,6 +9,7 @@ export const routes = {
     google: '/googleAuth',
     twitter: '/twitterAuth',
     social: '/socialAuth',
+    github: '/github',
   },
   users: {
     baseUrl: '/users',

@@ -9,3 +9,5 @@ export {addNewTags} from './addNewTags';
 export {isNewTags} from './isNewTags';
 export {getUserLikes} from './getUserLikes';
 export {createCommentsBase} from './createCommentsBase';
+export {getGithubAccessToken} from './getGithubAccessToken';
+export {getGithubUser} from './getGithubUser';

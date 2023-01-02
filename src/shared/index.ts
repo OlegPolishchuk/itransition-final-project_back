@@ -24,4 +24,6 @@ export {
   isNewTags,
   getUserLikes,
   createCommentsBase,
+  getGithubAccessToken,
+  getGithubUser,
 } from './utils';

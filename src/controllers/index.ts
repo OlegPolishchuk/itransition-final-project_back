@@ -4,7 +4,8 @@ export {
   login,
   logout,
   register,
-  socialLogin
+  socialLogin,
+  githubLogin,
 } from './auth';
 
 export {

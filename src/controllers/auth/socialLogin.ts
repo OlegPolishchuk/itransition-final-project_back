@@ -9,18 +9,23 @@ const refreshTokenAge = TokenData.refreshTokenAge;
 
 export const socialLogin = async (req: Request, res: Response) => {
 
-  const {login} = req.body;
+  const {login, name, avatar_url, code} = req.body;
 
-
+  console.log('login => ', login)
+  console.log('name => ', name)
   const user = await User.findOne({login});
 
   if (!user) {
     const user = new User({
       login,
+      userName: name || 'user name',
+      avatar: avatar_url || '',
       role: 'user',
       status: userStatus.active,
       created: Date.now(),
       lastLogin: Date.now(),
+      reviewsCount: 0,
+      likes: 0
     })
 
     await user.save();
