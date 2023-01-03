@@ -17,7 +17,7 @@ export const verifyRefreshToken = (req: Request, res: Response, next: NextFuncti
 
     const decoded = jwt.verify(refreshToken, signatureRefresh)
 
-    req.user = decoded;
+    req.body.user = decoded;
 
     return next();
 

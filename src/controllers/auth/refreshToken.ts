@@ -8,7 +8,7 @@ const accessTokenAge = TokenData.accessTokenAge;
 const refreshTokenAge = TokenData.refreshTokenAge;
 
 export const refreshToken = async (req: Request, res: Response) => {
-  const decoded = req.user as DecodedJWT;
+  const decoded = req.body.user as DecodedJWT;
 
   try {
     const user = await User.findOne({_id: decoded.userId}).exec();
