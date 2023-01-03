@@ -5,7 +5,9 @@ import {
   login,
   refreshToken,
   logout,
-  getProfile, socialLogin, githubLogin
+  getProfile,
+  socialLogin,
+  githubLogin,
 } from "../controllers";
 
 import {
@@ -35,3 +37,5 @@ authRouter.get(routes.auth.refresh, verifyRefreshToken, refreshToken);
 
 authRouter.post(routes.auth.social, socialLogin);
 authRouter.post(routes.auth.github, githubLogin);
+
+

@@ -1,9 +1,10 @@
 import axios, {AxiosError} from "axios";
 
+const Github_get_user_url = 'https://api.github.com/user'
+
 export const getGithubUser = async (token: string) => {
   try {
-    console.log(token)
-    const gitHubResponse = await axios.get('https://api.github.com/user', {
+    const gitHubResponse = await axios.get(Github_get_user_url, {
       headers: {
         Authorization: `token ${token}`,
       },

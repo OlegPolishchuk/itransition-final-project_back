@@ -7,9 +7,10 @@ export const routes = {
     profile: '/getProfile',
     refresh: '/refresh',
     google: '/googleAuth',
-    twitter: '/twitterAuth',
+    twitter: '/twitter-login',
+    twitterCallback: '/twitterAuthCallback',
     social: '/socialAuth',
-    github: '/github',
+    github: '/githubAuth',
   },
   users: {
     baseUrl: '/users',
