@@ -34,8 +34,6 @@ app.use(cors({
 }));
 app.use(bodyParser.json({strict: false}))
 
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
-
 
 app.use(routes.auth.baseUrl, authRouter)
 app.use(routes.users.baseUrl, usersRouter)
