@@ -21,7 +21,7 @@ export const verifyAccessToken = async (req: Request, res: Response, next: NextF
 
     const decoded = jwt.verify(token, signatureAccess);
 
-    req.body.user = decoded;
+    req.user = decoded;
 
     return next();
 

@@ -8,13 +8,12 @@ const accessTokenAge = TokenData.accessTokenAge;
 const refreshTokenAge = TokenData.refreshTokenAge;
 
 export const refreshToken = async (req: Request, res: Response) => {
-  const decoded = req.body.user as DecodedJWT;
+  const decoded = req.user as DecodedJWT;
 
   try {
     const user = await User.findOne({_id: decoded.userId}).exec();
 
     if (!user) {
-      console.log(`REFRESH TOKEN`, refreshToken)
       res.status(401).json({error: 'Cant find currentUser with current refresh token'})
     } else {
       const {accessToken, refreshToken} = getTokens(user.id);
