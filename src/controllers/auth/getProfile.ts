@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
-import {UserType} from "../../types";
+import {UserType, VerifyTokenReqType} from "../../types";
 
-export const getProfile = (req: Request, res: Response, user: UserType, admin:boolean = false) => {
+export const getProfile = (req: Request | VerifyTokenReqType, res: Response, user: UserType, admin:boolean = false) => {
   const body: Partial<UserType> = {...user};
 
   delete body.password;
