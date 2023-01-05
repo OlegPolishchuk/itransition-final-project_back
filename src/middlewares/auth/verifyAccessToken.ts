@@ -1,15 +1,12 @@
-import {NextFunction, Response} from "express";
+import {NextFunction, Request, Response} from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import {DecodedJWT, VerifyTokenReqType} from "../../types";
 
 dotenv.config();
 
-
-
 const signatureAccess = process.env.JWT_ACCESS_SECRET as string;
 
-export const verifyAccessToken = async (req: VerifyTokenReqType, res: Response, next: NextFunction) => {
+export const verifyAccessToken = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization
     ? req.headers.authorization.split(' ')[1]
     : '';
@@ -22,7 +19,7 @@ export const verifyAccessToken = async (req: VerifyTokenReqType, res: Response, 
 
     const decoded = jwt.verify(token, signatureAccess);
 
-    req.user = decoded as DecodedJWT;
+    req.tokenData = decoded;
 
     return next();
 

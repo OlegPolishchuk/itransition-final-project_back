@@ -2,16 +2,14 @@ import {Request, Response} from "express";
 import {User} from "../../models/User";
 import cookie from "cookie";
 import {TokenData} from "../constants";
-import {DecodedJWT, UserType, VerifyTokenReqType} from "../../types";
+import {DecodedJWT, UserType} from "../../types";
 
 const refreshTokenAge = TokenData.refreshTokenAge;
 
-export const findUserByToken = (cb: (req: VerifyTokenReqType, res: Response, user: UserType) => void) =>
+export const findUserByToken = (cb: (req: Request, res: Response, user: UserType) => void) =>
   async (req: Request, res: Response) => {
 
-  // const decoded = req.body.user as DecodedJWT;
-  // const decoded = req.user as DecodedJWT;
-  const decoded = req.user as DecodedJWT;
+  const decoded = req.tokenData as DecodedJWT;
 
     try{
       const user = await User.findOne({_id: decoded.userId});
@@ -30,7 +28,7 @@ export const findUserByToken = (cb: (req: VerifyTokenReqType, res: Response, use
           })
         )
 
-        await cb(req as VerifyTokenReqType, res, user._doc as UserType);
+        await cb(req, res, user._doc as UserType);
       }
     }
     catch (e) {
