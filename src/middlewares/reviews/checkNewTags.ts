@@ -4,7 +4,13 @@ import {addNewTags, findAllTags, isNewTags} from "../../shared";
 export const checkNewTags = async (req: Request, res: Response, next: NextFunction) => {
 
   try {
-    const {tags} = req.body;
+    let {tags} = req.body;
+
+    if (!tags) {
+      const {review} = req.body;
+
+      tags = review.tags;
+    }
 
     const allTags = await findAllTags();
 
