@@ -9,7 +9,7 @@ const refreshTokenAge = TokenData.refreshTokenAge;
 
 export const socialLogin = async (req: Request, res: Response) => {
 
-  const {login, name, avatar_url, code} = req.body;
+  const {login, name, avatar_url} = req.body;
 
   const user = await User.findOne({login});
 

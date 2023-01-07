@@ -12,7 +12,8 @@ export const updateUser = async (req: Request, res: Response) => {
   }
   catch (e) {
     res.status(500).json({
-      message: 'Error at updateUser Controller'
+      message: 'Error at updateUser Controller',
+      e
     })
   }
 
