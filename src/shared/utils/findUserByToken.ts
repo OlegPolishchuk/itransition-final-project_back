@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import {User} from "../../models/User";
 import cookie from "cookie";
-import {TokenData} from "../constants";
+import {TokenData, userStatus} from "../constants";
 import {DecodedJWT, UserType} from "../../types";
 
 const refreshTokenAge = TokenData.refreshTokenAge;
@@ -15,7 +15,10 @@ export const findUserByToken = (cb: (req: Request, res: Response, user: UserType
       const user = await User.findOne({_id: decoded.userId});
 
       if (!user) {
-        res.status(401).json({error: 'You are not authorized'})
+        return res.status(401).json({error: 'You are not authorized'})
+      }
+      if (user.status === userStatus.blocked) {
+        return res.status(401).json({error: 'User has blocked'})
       }
       else {
         const refreshToken = user.refreshToken;
