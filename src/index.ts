@@ -28,10 +28,10 @@ const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
 
 const DB_URL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.koqzweg.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
 
-// app.use(cors({
-//   origin: CLIENT_ORIGIN,
-//   credentials: true
-// }));
+app.use(cors({
+  origin: '*',
+  credentials: true
+}));
 app.use(bodyParser.json({strict: false}))
 
 
