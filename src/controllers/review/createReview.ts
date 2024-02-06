@@ -36,6 +36,7 @@ export const createReview = async (req: Request, res: Response) => {
     const reviewId = lastReview!._id;
 
     await createCommentsBase(reviewId.toString())
+    await User.updateOne({_id: userId}, {$inc: {reviewsCount: 1}})
 
     res.sendStatus(201)
   }
